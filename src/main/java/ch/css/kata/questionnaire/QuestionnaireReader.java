@@ -1,9 +1,6 @@
 package ch.css.kata.questionnaire;
 
-import ch.css.kata.questionnaire.domain.Answer;
-import ch.css.kata.questionnaire.domain.Options;
-import ch.css.kata.questionnaire.domain.Poll;
-import ch.css.kata.questionnaire.domain.Question;
+import ch.css.kata.questionnaire.domain.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -17,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
-public class QuestionnaireReader {
+public class QuestionnaireReader implements PollReader {
 
     public static final String QUESTIONNAIRE_FILE = "/questionnaire.txt";
     public static final String QUESTION_MARK = "?";
@@ -28,10 +25,15 @@ public class QuestionnaireReader {
         return Files.readAllLines(filePath);
     }
 
-    public List<Poll> readPolls() throws URISyntaxException, IOException {
+    @Override
+    public List<Poll> readPolls() {
         AtomicInteger index = new AtomicInteger();
-        Map<Integer, List<String>> questionMap = read().stream().collect(groupingBy(line -> getQuestionIndex(index, line)));
-        return questionMap.values().stream().map(this::toPoll).collect(toList());
+        try {
+            Map<Integer, List<String>> questionMap = read().stream().collect(groupingBy(line -> getQuestionIndex(index, line)));
+            return questionMap.values().stream().map(this::toPoll).collect(toList());
+        } catch (Exception ex) {
+            throw new IllegalStateException(ex);
+        }
     }
 
     private int getQuestionIndex(AtomicInteger index, String line) {

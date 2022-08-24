@@ -13,11 +13,9 @@ public record Reply(Poll poll, Answer choosenAnswer) {
         return poll.isAnswerCorrect(choosenAnswer);
     }
 
-
     public String toString() {
         return poll.question().value()
                 + "\n   Your answer '" + choosenAnswer.value() + "' is " + (isCorrect() ? "correct" : "wrong")
                 + (isCorrect() ? "" : "\n   Correct answer: '" + poll.correctAnswer().value() + "'");
-
     }
 }
