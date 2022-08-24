@@ -9,7 +9,7 @@ public record Reply(Poll poll, Answer choosenAnswer) {
         requireNonNull(choosenAnswer);
     }
 
-    private boolean isCorrect() {
+    public boolean isCorrect() {
         return poll.isAnswerCorrect(choosenAnswer);
     }
 
