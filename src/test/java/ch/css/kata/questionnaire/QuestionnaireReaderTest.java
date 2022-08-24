@@ -1,5 +1,9 @@
 package ch.css.kata.questionnaire;
 
+import ch.css.kata.questionnaire.domain.Answer;
+import ch.css.kata.questionnaire.domain.Options;
+import ch.css.kata.questionnaire.domain.Poll;
+import ch.css.kata.questionnaire.domain.Question;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -23,9 +27,17 @@ class QuestionnaireReaderTest {
     void read_all_polls() throws Exception {
         int expectedPollCount = 2;
 
-        List<List<String>> actual = testee.readPolls();
+        List<Poll> actual = testee.readPolls();
 
         assertThat(actual).hasSize(expectedPollCount);
+        assertThat(actual.get(0)).isEqualTo(new Poll(
+                new Question("Which of these animals is a mammal?"),
+                new Options(List.of(
+                        new Answer("Ant"),
+                        new Answer("Bee"),
+                        new Answer("Cat")
+                )),
+                new Answer("Cat")
+        ));
     }
-
 }

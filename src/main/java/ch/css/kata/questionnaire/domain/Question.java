@@ -1,4 +1,4 @@
 package ch.css.kata.questionnaire.domain;
 
-record Question(String value) {
+public record Question(String value) {
 }

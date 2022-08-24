@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 /**
  * Repräsentiert eine Frage mit allen möglichen Antwortmöglichkeiten und der korrekten Antwort.
  */
-record Poll(Question question, Options options, Answer correctAnswer) {
-    Poll {
+public record Poll(Question question, Options options, Answer correctAnswer) {
+    public Poll {
         requireNonNull(question);
         requireNonNull(options);
         requireNonNull(correctAnswer);
