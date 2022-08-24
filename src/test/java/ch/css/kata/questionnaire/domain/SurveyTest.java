@@ -26,9 +26,9 @@ class SurveyTest {
                 )),
                 new Answer("0")
         );
-        Reply reply1 = new Reply(poll1, new Answer("1"));
-        Reply reply2 = new Reply(poll2, new Answer("0"));
-        Survey testee = new Survey(List.of(poll1, poll2), List.of(reply1, reply2));
+        Survey testee = new Survey(() -> List.of(poll1, poll2));
+        testee.addReply(new Reply(poll1, new Answer("1")));
+        testee.addReply(new Reply(poll2, new Answer("0")));
 
         String actual = testee.getSuccessRate();
 
